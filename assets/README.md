@@ -1,0 +1,3 @@
+## id mapping 
+
+master.csv is a file contains various player id for mlb players. Use this file to find mapping fangraphs player ids to mlb.com player ids 
