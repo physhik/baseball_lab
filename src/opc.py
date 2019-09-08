@@ -277,9 +277,10 @@ def solver(IF, teamd):
       
 def main(year):
   teamd = {}
+  teaml = ['lad','col','sf','ari','sd','stl','pit','cin','chc','mil','phi','nym','wsh','mia','atl','hou','tex','oak','sea','laa','min','kc','cle','chw','det','nyy', 'tor','bos','tb','bal'] 
+
   for t in teaml:
     teamd[t] = {'Home' :{}, 'Away':{}}
-  teaml = ['lad','col','sf','ari','sd','stl','pit','cin','chc','mil','phi','nym','wsh','mia','atl','hou','tex','oak','sea','laa','min','kc','cle','chw','det','nyy', 'tor','bos','tb','bal'] 
 
   teamd = gamestadium(year, teaml, teamd)
   factor = init_factor(year)
