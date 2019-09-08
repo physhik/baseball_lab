@@ -127,7 +127,6 @@ def gamestadium(year, teaml, teamd):
   """
   Make a dictionary data structure has team names keys and game numbers played at each parks as home/away.
   """
-  teamls = [['lad','col','sf','ari','sd','stl','pit','cin','chc','mil'] ,['phi','nym','wsh','mia','atl','hou','tex','oak','sea','laa'],['min','kc','cle','chw','det','nyy', 'tor','bos','tb','bal']] 
   url = "https://www.espn.com/mlb/team/schedule/_/name/{}/season/{}/seasontype/2/half/{}"
     
   for t in teaml: 
