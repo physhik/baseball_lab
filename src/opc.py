@@ -120,18 +120,8 @@ def init_factor(year):
   IF['PARK NAME'] = l
   IF.columns = ['TEAMS(PARK)', 'RUNS', 'HR', 'H', '2B', '3B', 'BB', 'RUNS x OPC']
   IF.index = l
-  
-  
-  
+
   return IF
-
-
-
-teamd = {}
-for t in teaml:
-  teamd[t] = {'Home' :{}, 'Away':{}}
-teaml = ['lad','col','sf','ari','sd','stl','pit','cin','chc','mil','phi','nym','wsh','mia','atl','hou','tex','oak','sea','laa','min','kc','cle','chw','det','nyy', 'tor','bos','tb','bal'] 
-
 
 def gamestadium(year, teaml, teamd):
   """
@@ -283,6 +273,14 @@ def solver(IF, teamd):
   
   dp.index = IF.index
   
-
   return IF.join(dp)
       
+def main(year):
+  teamd = {}
+  for t in teaml:
+    teamd[t] = {'Home' :{}, 'Away':{}}
+  teaml = ['lad','col','sf','ari','sd','stl','pit','cin','chc','mil','phi','nym','wsh','mia','atl','hou','tex','oak','sea','laa','min','kc','cle','chw','det','nyy', 'tor','bos','tb','bal'] 
+
+  teamd = gamestadium(year, teaml, teamd)
+  factor = init_factor(year)
+  return solver( factor , teamd)
