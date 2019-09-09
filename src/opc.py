@@ -3,8 +3,55 @@ from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
 import json 
+from initial_factors import *
 
-def init_factor(year):
+def oldOPCxRUN(year):
+  """
+  Initial factors are given with more significant figures than ESPN park factor
+  """
+  
+  tmap = {'ari': 'Arizona',
+ 'atl': 'Atlanta',
+ 'bal': 'Baltimore',
+ 'bos': 'Boston',
+ 'chc': 'Chicago Cubs',
+ 'chw': 'Chicago White Sox',
+ 'cin': 'Cincinnati',
+ 'cle': 'Cleveland',
+ 'col': 'Colorado',
+ 'det': 'Detroit',
+ 'hou': 'Houston',
+ 'kc': 'Kansas City',
+ 'laa': 'Los Angeles Angels',
+ 'lad': 'Los Angeles Dodgers',
+ 'mia': 'Miami',
+ 'mil': 'Milwaukee',
+ 'min': 'Minnesota',
+ 'nym': 'New York Mets',
+ 'nyy': 'New York Yankees',
+ 'oak': 'Oakland',
+ 'phi': 'Philadelphia',
+ 'pit': 'Pittsburgh',
+ 'sd': 'San Diego',
+ 'sea': 'Seattle',
+ 'sf': 'San Francisco',
+ 'stl': 'St. Louis',
+ 'tb': 'Tampa Bay',
+ 'tex': 'Texas',
+ 'tor': 'Toronto',
+ 'wsh': 'Washington'}
+  
+  IF=initial_factors(year, year)
+  OPCxRUN=30/(29+IF)*IF
+  OPCxRUN.columns = ['OPCxRUN']
+  IF=IF.join(OPCxRUN)
+  id = list(tmap.values())
+  id.sort()
+  IF.index = id
+  return IF
+
+
+def oldOPCxRUN_ESPN(year):
   """
   web crawling ESPN park factor. 
   
@@ -191,10 +238,10 @@ def gamestadium(year, teaml, teamd):
 
   return teamd
 
-def solver(IF, teamd):
+def solver(year, IF, teamd):
   "Find opc x runs by solving linear equations, and return the joined dataframe."
   
-    
+  year = str(year)  
   tmap = {'ari': 'Arizona',
  'atl': 'Atlanta',
  'bal': 'Baltimore',
@@ -243,7 +290,7 @@ def solver(IF, teamd):
   for i in range(30):
     for j in range(30):
       if i!=j:
-        pol[i][j] *= -float(IF.loc[tmap[teaml[i]]].RUNS)
+        pol[i][j] *= -float(IF.loc[tmap[teaml[i]]][year])
         
   print("The determinant of 30x30 matrice must be near zero, ", np.linalg.det(pol)/(80**30))
   
@@ -267,9 +314,6 @@ def solver(IF, teamd):
   for i in range(30):
     d['RUNS x mOPC'].append(P[i])
   dp = pd.DataFrame(d)
-  IF = IF.sort_values(by='TEAMS(PARK)')
-  IF.set_index('TEAMS(PARK)', inplace=True)
-  
   dp.index = IF.index
   
   return IF.join(dp)
@@ -282,5 +326,5 @@ def main(year):
     teamd[t] = {'Home' :{}, 'Away':{}}
 
   teamd = gamestadium(year, teaml, teamd)
-  factor = init_factor(year)
-  return solver( factor , teamd)
+  factor = oldOPCxRUN(year)
+  return solver(year, factor, teamd)
