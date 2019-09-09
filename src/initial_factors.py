@@ -43,15 +43,21 @@ def runs(start, end):
 
 def initial_factors(start, end):
   IF = {}
-  dp2 = runs(start, end)
-  for team in dp2.index:
+  n = 4*2
+  dp = runs(start, end)
+  for team in dp.index:
     for year in range(start,end+1):
       i = year - start
       try:
-        IF[str(year)].append(((int(dp2.loc[team][6*i])+int(dp2.loc[team][6*i+1]))/int(dp2.loc[team][6*i+2]))/((int(dp2.loc[team][6*i+3])+int(dp2.loc[team][6*i+4]))/int(dp2.loc[team][6*i+5])))
+        IF[str(year)].append(((int(dp.loc[team][n*i])+int(dp.loc[team][n*i+1]))/int(dp.loc[team][n*i+2]))/((int(dp.loc[team][n*i+4])+int(dp.loc[team][n*i+5]))/int(dp.loc[team][n*i+6])))
       except:
-        IF[str(year)]=[((int(dp2.loc[team][6*i])+int(dp2.loc[team][6*i+1]))/int(dp2.loc[team][6*i+2]))/((int(dp2.loc[team][6*i+3])+int(dp2.loc[team][6*i+4]))/int(dp2.loc[team][6*i+5]))]
-
+        IF[str(year)]=[((int(dp.loc[team][n*i])+int(dp.loc[team][n*i+1]))/int(dp.loc[team][n*i+2]))/((int(dp.loc[team][n*i+4])+int(dp.loc[team][n*i+5]))/int(dp.loc[team][n*i+6]))]
+        
+      hwp = int(dp.loc[team][n*i+3])/int(dp.loc[team][n*i+2])
+      awp = int(dp.loc[team][n*i+7])/int(dp.loc[team][n*i+6])
+      ipc = (18.5 - hwp)/(18.5- awp)
+      IF[str(year)+'IPC'] = ipc
+            
   dpif = pd.DataFrame(IF)
   dpif.index = dp2.index.values
   return dpif
