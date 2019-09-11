@@ -209,20 +209,46 @@ def gamestadium(year, teaml, teamd):
           dp= dp.iloc[:,0:5]
           dp = dp.dropna()
   
-          for team in dp.Opponent:
-            if 'vs' in team:
-              team = team[3:]
+          for i in range(len(dp)):
+            team  = dp.Opponent.values[i]
+            result = dp.Result.values[i]
+            result = result.split(' ')[0]
+            WL = result[0]
+            #print(WL)
+            scores = result[1:].split('-')
+            
+            def addscore(ha, b):
+              
               try:
-                teamd[t]['Home'][team] +=1
+                teamd[t][ha][team+' SR'] += int(scores[b])
+                teamd[t][ha][team+' AR'] += int(scores[(b+1)%2])
+              except:
+                teamd[t][ha][team+' SR'] = int(scores[b])
+                teamd[t][ha][team+' AR'] = int(scores[(b+1)%2])
+                       
+            if team[0] == 'v' and (WL in 'WL'):
+              team = team[3:]        
+              try:
+                teamd[t]['Home'][team+' GP'] +=1
               except:            
-                teamd[t]['Home'][team] =1
-            else:
+                teamd[t]['Home'][team+' GP'] =1
+
+               
+              if WL == 'W':
+                addscore('Home', 0)
+              else:
+                addscore('Home',1)
+                  
+            elif team[0] =='@' and (WL in 'WL'):
               team = team[2:]
               try:
-                teamd[t]['Away'][team] +=1
+                teamd[t]['Away'][team+' GP'] +=1
               except:            
-                teamd[t]['Away'][team] =1
-   
+                teamd[t]['Away'][team+' GP'] =1
+              if WL == 'W':  
+                addscore('Away', 0)
+              else:
+                addscore('Away',1)         
 
   
   teaml=[]
@@ -281,11 +307,13 @@ def solver(year, IF, teamd):
     h = teamd[teaml[i]]['Home']
     a = teamd[teaml[i]]['Away']
   
-    pol[i][i] = sum(h.values())
     for j in range(30):
-      if tmap[teaml[j]] in a.keys():
-        pol[i][j] = a[tmap[teaml[j]]]
-    
+      if tmap[teaml[j]]+' GP' in h.keys():
+        s += h[tmap[teaml[j]]+ ' GP']    
+
+      if tmap[teaml[j]]+' GP' in a.keys():
+        pol[i][j] = a[tmap[teaml[j]] + ' GP']
+    pol[i][i] =s    
 
   for i in range(30):
     for j in range(30):
@@ -308,11 +336,11 @@ def solver(year, IF, teamd):
     x += np.linalg.solve(A,b)
     xl.append(np.linalg.solve(A,b))
 
-  P = x/30
-  print("Ideally sum of the factors is 30, and here is ",sum(P))
-  d = {'RUNS x mOPC':[]}
+  SF = x/30/IF[year+'IPC']
+  print("Ideally sum of the factors is 30, and here is ",sum(SF))
+  d = {'mOPCxRUN/IPC':[]}
   for i in range(30):
-    d['RUNS x mOPC'].append(P[i])
+    d['mOPCxRUN/IPC'].append(SF[i]) 
   dp = pd.DataFrame(d)
   dp.index = IF.index
   
