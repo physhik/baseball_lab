@@ -50,6 +50,7 @@ def oldOPCxRUN(year):
   IF.index = id
   return IF
 
+
 def gamestadium(year, teaml, teamd):
   """
   Make a dictionary data structure has team names keys and game numbers played at each parks as home/away.
@@ -88,7 +89,7 @@ def gamestadium(year, teaml, teamd):
           # remove postpone date using None
           dp= dp.iloc[:,0:5]
           dp = dp.dropna()
-  
+          
           for i in range(len(dp)):
             team  = dp.Opponent.values[i]
             result = dp.Result.values[i]
@@ -128,9 +129,8 @@ def gamestadium(year, teaml, teamd):
               if WL == 'W':  
                 addscore('Away', 0)
               else:
-                addscore('Away',1)         
+                addscore('Away',1)
 
-  
   teaml=[]
   for t in teamd.keys():
     if teamd[t] == {'Away': {}, 'Home': {}}:
@@ -182,11 +182,14 @@ def solver(year, IF, teamd):
   teaml = list(tmap.keys())
   
   pol = [[0 for x in range(30)] for y in range(30)]
+  
+  poltr = [[0 for x in range(60)] for y in range(60)]
 
   for i in range(30):
+    s=0
     h = teamd[teaml[i]]['Home']
     a = teamd[teaml[i]]['Away']
-  
+
     for j in range(30):
       if tmap[teaml[j]]+' GP' in h.keys():
         s += h[tmap[teaml[j]]+ ' GP']    
@@ -199,7 +202,13 @@ def solver(year, IF, teamd):
     for j in range(30):
       if i!=j:
         pol[i][j] *= -float(IF.loc[tmap[teaml[i]]][year])
-        
+  
+  
+  #for i in range(30):
+   # for j in range(30):
+    #  poltr[i][j]=IF.loc[tmap[teaml[i]]]['SF']*
+  
+  
   print("The determinant of 30x30 matrice must be near zero, ", np.linalg.det(pol)/(80**30))
   
   x= [0]*30
@@ -216,11 +225,13 @@ def solver(year, IF, teamd):
     x += np.linalg.solve(A,b)
     xl.append(np.linalg.solve(A,b))
 
-  SF = x/30/IF[year+'IPC']
+  SF = x/30 / IF[year+'IPC']
+
+
   print("Ideally sum of the factors is 30, and here is ",sum(SF))
   d = {'mOPCxRUN/IPC':[]}
   for i in range(30):
-    d['mOPCxRUN/IPC'].append(SF[i]) 
+    d['mOPCxRUN/IPC'].append(SF[i])  
   dp = pd.DataFrame(d)
   dp.index = IF.index
   
