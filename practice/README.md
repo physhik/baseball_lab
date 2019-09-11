@@ -1,8 +1,24 @@
-# Ipython notebook examples 
+# Jupyter notebook examples 
 
 This instructions are such as a manual to follow to gain the stats made by this repo. 
 
 Here, I present a bit of introductions about the new metrics considered at each examples. 
+
+
+## 0. Setup 
+
+The goal of this section is helping who do not know how to handle Python. 
+
+Just prepare a Google account for Google drive and Google colab. And then follow the process and obtain the CSV format files you can open with Excel or any spread sheet program.    
+
+Login your google account and 
+
+Go to the colab link. https://colab.research.google.com/
+
+It provides Jupyter notebook environment, and you can excute Python script and files. 
+
+And then follow the instruction at [Setup.ipynb](https://github.com/physhik/baseball_lab/blob/master/practice/Setup.ipynb)
+
 
 ## practice 1
 
