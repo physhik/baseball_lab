@@ -16,7 +16,7 @@ def runs(start, end):
         han = 'home'
       else:
         han = 'away'
-      for type in ['pitching', 'batting']:
+      for type in ['batting', 'pitching']:
         url = "http://www.espn.com/mlb/stats/team/_/stat/{}/year/{}/split/{}"
         url = url.format(type, year, ha)
         s=requests.get(url).content
@@ -34,6 +34,7 @@ def runs(start, end):
         dp= dp.sort_values(by='TEAM')
         runmap[(year, type, han)] = dp.R.values
       runmap[(year, 'GP',han)] = dp.GP.values
+      runmap[(year, 'W', han)] = dp.W.values
       
   dp2 = pd.DataFrame(runmap)
 
