@@ -56,7 +56,10 @@ def initial_factors(start, end):
       hwp = int(dp.loc[team][n*i+3])/int(dp.loc[team][n*i+2])
       awp = int(dp.loc[team][n*i+7])/int(dp.loc[team][n*i+6])
       ipc = (18.5 - hwp)/(18.5- awp)
-      IF[str(year)+'IPC'] = ipc
+      try:
+        IF[str(year)+'IPC'].append(ipc)
+      except:
+        IF[str(year)+'IPC'] = [ipc]
             
   dpif = pd.DataFrame(IF)
   dpif.index = dp2.index.values
