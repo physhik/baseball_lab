@@ -41,7 +41,6 @@ def runs(start, end):
   dp2.index = dp.index.values
   return dp2
 
-
 def initial_factors(start, end):
   IF = {}
   n = 4*2
@@ -57,11 +56,13 @@ def initial_factors(start, end):
       hwp = int(dp.loc[team][n*i+3])/int(dp.loc[team][n*i+2])
       awp = int(dp.loc[team][n*i+7])/int(dp.loc[team][n*i+6])
       ipc = (18.5 - hwp)/(18.5- awp)
+      
       try:
         IF[str(year)+'IPC'].append(ipc)
       except:
         IF[str(year)+'IPC'] = [ipc]
-            
+        
+      
   dpif = pd.DataFrame(IF)
-  dpif.index = dp2.index.values
+  dpif.index = dp.index.values
   return dpif
