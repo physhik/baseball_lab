@@ -1,6 +1,8 @@
 # baseball_lab
 
-Making more fun in baseball stats
+Making more fun in baseball stats. 
+
+At this README, let me present topics discussed in this repo. How you access the stats using the Python files are introduced in the /practice folder as jupyter notebook format. 
 
 
 ## Ultimate fielding independent pitching stats
