@@ -20,7 +20,7 @@ It provides Jupyter notebook environment, and you can excute Python script and f
 And then follow the instruction at [Setup.ipynb](https://github.com/physhik/baseball_lab/blob/master/practice/Setup.ipynb)
 
 
-## practice 1
+## 1. New metrics 
 
 FIP (fielding independent pitching) could be one of most famous pitching stats in recent 10 years. So intuitive and not too hard to calculate. 
 
