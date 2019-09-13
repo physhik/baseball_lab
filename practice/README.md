@@ -5,7 +5,7 @@ This instructions are such as a manual to follow to gain the stats made by this 
 Here, I present a bit of introductions about the new metrics considered at each examples. 
 
 
-## 0. Setup 
+- ### 0. Setup 
 
 The goal of this section is helping who do not know how to handle Python. 
 
@@ -20,7 +20,7 @@ It provides Jupyter notebook environment, and you can excute Python script and f
 And then follow the instruction at [Setup.ipynb](https://github.com/physhik/baseball_lab/blob/master/practice/Setup.ipynb)
 
 
-## 1. New metrics 
+- ### New metrics 
 
 FIP (fielding independent pitching) could be one of most famous pitching stats in recent 10 years. So intuitive and not too hard to calculate. 
 
@@ -43,12 +43,12 @@ I also want to discuss if rescaling FIP to ERA makes sense. Why not RA? I want t
 
 About xFIP, I think giving the same HR rate to the fly balls is rather old fashioned since the fly ball exit velocities have been measured.
 
-## practice 2
+- ### practice 2
 
 Will be presented soon. 
 
 
-## Park factor 
+- ### Park factor 
 
 Other park correctors in baseball-reference considers the correction of the initial factor 
 
