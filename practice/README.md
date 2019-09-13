@@ -48,7 +48,7 @@ About xFIP, I think giving the same HR rate to the fly balls is rather old fashi
 Will be presented soon. 
 
 
-## practice 4 
+## Park factor 
 
 Other park correctors in baseball-reference considers the correction of the initial factor 
 
@@ -58,14 +58,18 @@ The rough park factor can be calculated by (initial factor -1)/2 + 1. For exampl
 
 I recommend you to read the [this link](https://www.baseball-reference.com/about/parkadjust.shtml) before further discussion. The above link introduce how to compute the park factor for baseball reference. 
 
-I want to discuss about the step 3, OPC (other park corrector).
+I especially focused on the step 3, OPC (other park corrector).
 
 "Make corrections for the fact that the other road parks' total difference from the league average is offset by the park rating of the club that is being rated"
 
 BTW, it assumes the initial factors of the other parks are all identical, or have the same number of games with N-1 teams (N=30).
 
-More details with formula can be found at [my personal blog](http://physhik.com/opc/).
+More details with formula will be presented at [my personal blog](http://physhik.com/opc/).
 
 However, it's slighty off because a mlb team have more games in the same division. This was already pointed out in other posts such as [this](https://www.reddit.com/r/Sabermetrics/comments/4kjlw9/are_park_factors_real/) 
 
 I calculated the more precise OPC x Initial factor from the number of all the games of all the teams by web crawling mlb schedule.
+
+I also updated for baseball-reference 'Pitching/batting park factor(PPF/BPF)' via 'Team pitching/batting rating(TPR/TBR)'. The formula to this also seems to have room to be improved to me, and still on progressing. 
+
+The park factor in baseball reference and fangraphs are scaled separatedly for NL/AL. I did not split the league, and DH/non-DH effect was not considered yet. Thus, the resultant park factor I calucuated overestimates AL yet. I will modify this soon. 
