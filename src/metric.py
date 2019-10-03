@@ -90,7 +90,7 @@ def get_table(soup, ind):
     
     return data
 
-def fangraphs_stats(start_season, end_season, start_date, end_date, league='all', qual=1, ind=1):
+def fangraphs_stats(start_season, end_season, start_date, end_date, league='all', qual=1, ind=0):
     """
     Get season-level pitching data from FanGraphs. 
     ARGUMENTS:
