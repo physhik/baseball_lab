@@ -1,0 +1,5 @@
+numpy
+scipy
+pandas
+bs4
+requests

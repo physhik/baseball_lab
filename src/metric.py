@@ -18,7 +18,7 @@ def get_soup(start_season, end_season, startdate, enddate, league, qual, ind):
 
     s=requests.get(url).content
     #print(s)
-    return BeautifulSoup(s, "lxml")
+    return BeautifulSoup(s, "html.parser")
 
 def get_table(soup, ind):
     """
