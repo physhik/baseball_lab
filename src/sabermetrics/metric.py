@@ -129,7 +129,7 @@ def statcast_stats(start_year, end_year, start_date, end_date):
 
 def new_metric(start_year, end_year, start_date, end_date):
   
-  idmap = pd.read_csv("../assets/master.csv", encoding="ISO-8859-1") 
+  idmap = pd.read_csv("../../assets/master.csv", encoding="ISO-8859-1") 
   
   con, brl, con_wohr= statcast_stats(start_year, end_year, start_date, end_date)
   fg  = fangraphs_stats(start_year, end_year, start_date, end_date)
